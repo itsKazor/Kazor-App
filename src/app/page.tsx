@@ -141,7 +141,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                {["480p", "720p", "1080p"].map((resolution, i) => (
+                {["480p", "720p", "1080p"].map((resolution) => (
                   <motion.button
                     key={resolution}
                     whileTap={{ scale: 0.98 }}
