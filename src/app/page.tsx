@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 interface Data {
   title: string;
@@ -23,7 +24,9 @@ export default function Home() {
 
     try {
       const res = await fetch(
-        `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(url)}`
+        `https://api.ryzendesu.vip/api/downloader/ytmp4?url=${encodeURIComponent(
+          url
+        )}`
       );
       const result = await res.json();
       setData(result);
@@ -80,7 +83,7 @@ export default function Home() {
             {loading ? (
               <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
-              'Download'
+              "Download"
             )}
           </motion.button>
         </motion.div>
@@ -102,9 +105,11 @@ export default function Home() {
                   animate={{ scale: 1 }}
                   className="relative rounded-xl overflow-hidden"
                 >
-                  <img
+                  <Image
                     src={data.thumbnail}
                     alt="Thumbnail"
+                    width={500} // Sesuaikan dengan kebutuhan
+                    height={300}
                     className="w-full h-full object-cover rounded-lg"
                   />
                   <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded text-xs">
@@ -119,10 +124,12 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h2 className="font-semibold text-lg line-clamp-2">{data.title}</h2>
+                  <h2 className="font-semibold text-lg line-clamp-2">
+                    {data.title}
+                  </h2>
                   <div className="text-sm text-gray-300">
                     <p>Uploader: {data.author}</p>
-                    <p>Views: {data.views?.toLocaleString() || 'N/A'}</p>
+                    <p>Views: {data.views?.toLocaleString() || "N/A"}</p>
                   </div>
                 </motion.div>
               </div>
@@ -134,11 +141,15 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                {['480p', '720p', '1080p'].map((resolution, i) => (
+                {["480p", "720p", "1080p"].map((resolution, i) => (
                   <motion.button
                     key={resolution}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => window.open(`${data.url}&quality=${resolution.slice(0, -1)}`)}
+                    onClick={() =>
+                      window.open(
+                        `${data.url}&quality=${resolution.slice(0, -1)}`
+                      )
+                    }
                     className="w-full p-3 text-center bg-[#ffffff0a] hover:bg-[#ffffff15] rounded-xl border border-[#ffffff1a] transition-all"
                   >
                     {resolution}
