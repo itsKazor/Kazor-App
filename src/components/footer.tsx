@@ -33,7 +33,7 @@ export default function Footer() {
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
           <div className="relative bg-white p-4 rounded-lg">
             <Image
-              src="/qris.jpg"
+              src="/qris.png"
               alt="Subaru"
               width={300}
               height={200}
