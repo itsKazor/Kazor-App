@@ -160,12 +160,12 @@ export default function Navbar() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    href="/facebook"
+                    href="/instagram"
                     className={`text-white hover:text-orange-300 transition-colors ${
-                      pathname === "/facebook" ? "text-orange-400" : ""
+                      pathname === "/instagram" ? "text-orange-400" : ""
                     }`}
                   >
-                    Facebook
+                    Instagram
                   </Link>
                 </motion.li>
                 <motion.li
@@ -173,12 +173,12 @@ export default function Navbar() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    href="/instagram"
+                    href="/facebook"
                     className={`text-white hover:text-orange-300 transition-colors ${
-                      pathname === "/instagram" ? "text-orange-400" : ""
+                      pathname === "/facebook" ? "text-orange-400" : ""
                     }`}
                   >
-                    Instagram
+                    Facebook
                   </Link>
                 </motion.li>
               </ul>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Footer from "@/components/footer";
 
 interface Data {
   title: string;
@@ -161,14 +162,7 @@ export default function Home() {
         </AnimatePresence>
 
         {/* Footer */}
-        <motion.footer
-          className="mt-8 text-center text-gray-400 text-sm pb-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <p>&copy; 2025 Kazor. Baru Belajar Puh 😁🙏</p>
-        </motion.footer>
+          <Footer/>
       </div>
     </motion.div>
   );

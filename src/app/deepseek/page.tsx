@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Footer from "@/components/footer";
 
 type Message = {
   id: number;
@@ -17,10 +18,10 @@ export default function AIChat() {
 
   const fetchAIResponse = async (userMessage: string) => {
     if (!userMessage) return;
-    
+
     setLoading(true);
     // Tambah pesan user
-    setMessages((prev) => [ 
+    setMessages((prev) => [
       ...prev,
       { id: Date.now(), text: userMessage, isUser: true },
     ]);
@@ -42,7 +43,11 @@ export default function AIChat() {
       console.error("Error:", error);
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 1, text: "Maaf, terjadi kesalahan. Coba lagi ya!", isUser: false },
+        {
+          id: Date.now() + 1,
+          text: "Maaf, terjadi kesalahan. Coba lagi ya!",
+          isUser: false,
+        },
       ]);
     } finally {
       setLoading(false);
@@ -69,7 +74,7 @@ export default function AIChat() {
           animate={{ y: 0 }}
           className="py-8 text-center"
         >
-          <h1 className="text-4xl font-bold text-orange-300">Kazor AI</h1>
+          <h1 className="text-4xl font-extrabold text-orange-300">KAZOR AI</h1>
           <p className="text-orange-200/80 mt-2">Tanya apa saja ke AI</p>
         </motion.header>
 
@@ -82,7 +87,9 @@ export default function AIChat() {
                 initial={{ opacity: 0, x: message.isUser ? 50 : -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0 }}
-                className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
+                className={`flex ${
+                  message.isUser ? "justify-end" : "justify-start"
+                }`}
               >
                 <div
                   className={`max-w-[80%] p-4 rounded-2xl ${
@@ -140,13 +147,7 @@ export default function AIChat() {
       </div>
 
       {/* Footer */}
-      <motion.footer
-        className="text-center text-gray-400 text-sm py-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        <p>&copy; 2025 Kazor. Baru Belajar Puh 😁🙏</p>
-      </motion.footer>
+      <Footer />
     </motion.div>
   );
 }
