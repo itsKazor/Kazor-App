@@ -61,25 +61,21 @@ export default function Navbar() {
           whileHover={{ scale: 1.05 }}
           className="flex items-center space-x-2"
         >
-          <a
-          className="flex items-center space-x-2"
-            href="https://github.com/itsKazor"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/subaru.png"
-              alt="Kazor"
-              width="40"
-              height="40"
-              className="rounded-full border-2 border-orange-300"
-            />
-            <h1 className="text-white text-2xl font-bold bg-gradient-to-r from-orange-300 to-amber-400 bg-clip-text text-transparent">
-              Kazor
-            </h1>
-          </a>
+          <Link href="/" passHref>
+            <div className="flex items-center space-x-2">
+              <Image
+                src="/subaru.png"
+                alt="Kazor"
+                width="40"
+                height="40"
+                className="rounded-full border-2 border-orange-300"
+              />
+              <h1 className="text-white text-2xl font-bold bg-gradient-to-r from-orange-300 to-amber-400 bg-clip-text text-transparent">
+                Kazor
+              </h1>
+            </div>
+          </Link>
         </motion.div>
-
         <motion.button
           onClick={toggleMenu}
           className="text-white relative h-8 w-8"
@@ -126,9 +122,9 @@ export default function Navbar() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    href="/deepseek"
+                    href="/kazor"
                     className={`text-white hover:text-orange-300 transition-colors ${
-                      pathname === "/deepseek" ? "text-orange-400" : ""
+                      pathname === "/kazor" ? "text-orange-400" : ""
                     }`}
                   >
                     Kazor AI
@@ -147,9 +143,9 @@ export default function Navbar() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    href="/"
+                    href="/youtube"
                     className={`text-white hover:text-orange-300 transition-colors ${
-                      pathname === "/" ? "text-orange-400" : ""
+                      pathname === "/youtube" ? "text-orange-400" : ""
                     }`}
                   >
                     YouTube
