@@ -42,7 +42,7 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen flex flex-col items-center bg-black text-white p-4 relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center pt-20 bg-black text-white p-4 relative overflow-hidden"
     >
       {/* Container */}
       <div className="w-full max-w-lg lg:max-w-3xl mx-auto">
@@ -53,7 +53,7 @@ export default function Home() {
           className="mb-8 pt-8 text-center"
         >
           <h1 className="text-3xl lg:text-4xl font-extrabold">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-300">
+            <span className="text-orange-300">
               YOUTUBE DOWNLOADER
             </span>
           </h1>
@@ -78,7 +78,7 @@ export default function Home() {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={fetchDownloadLinks}
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 rounded-xl font-medium"
+            className="px-6 py-3 bg-gradient-to-r  from-orange-600 to-orange-300 rounded-xl font-medium"
           >
             {loading ? (
               <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

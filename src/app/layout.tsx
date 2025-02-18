@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "Kazor YT Downloader",
-  description: "Download YouTube videos in MP4 format",
-  icons : "/favicon.png"
+  title: "Kazor",
+  icons: "favicon.png",
 };
-
-const mulish = Inter({
-  subsets: ["latin"],
-  weight: ["300"], 
-});
 
 export default function RootLayout({
   children,
@@ -20,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={mulish.className}>{children}</body>
+      <body className="bg-zinc-950 text-white">
+        <Navbar/>
+        {children}
+        
+        </body>
     </html>
   );
 }
