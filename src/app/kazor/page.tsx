@@ -14,7 +14,7 @@ export default function AIChat() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
-  const prompt = "Kamu adalah Kazor Ai yang ditenagai oleh deepseek";
+  const prompt = "Kamu adalah Kazor Ai, AI yang bisa menjawab pertanyaanmu";
 
   const fetchAIResponse = async (userMessage: string) => {
     if (!userMessage) return;
