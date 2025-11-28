@@ -2,34 +2,48 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import Footer from "@/components/footer";
 
-interface VideoData {
-  resolution: string;
-  thumbnail: string;
+interface Data {
+  status: string;
   url: string;
+  filename?: string;
+  picker?: any[];
 }
 
 export default function Home() {
   const [url, setUrl] = useState("");
-  const [videos, setVideos] = useState<VideoData[]>([]);
+  const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const fetchDownloadLinks = async () => {
     if (!url) return;
     setLoading(true);
+    setErrorMsg("");
+    setData(null);
 
     try {
-      const res = await fetch(
-        `https://api.ryzendesu.vip/api/downloader/fbdl?url=${encodeURIComponent(
-          url
-        )}`
-      );
+      const res = await fetch("https://api.cobalt.tools/api/json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ url: url }),
+      });
       const result = await res.json();
-      setVideos(result.data);
+
+      if (result.status === "error") {
+        setErrorMsg("Gagal. Pastikan link Facebook publik & benar.");
+      } else if (result.status === "stream" || result.status === "redirect") {
+        setData(result);
+      } else if (result.status === "picker") {
+        setData(result.picker[0]);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
+      setErrorMsg("Error jaringan.");
     } finally {
       setLoading(false);
     }
@@ -42,9 +56,7 @@ export default function Home() {
       exit={{ opacity: 0 }}
       className="min-h-screen flex flex-col items-center pt-20 bg-black text-white p-4 relative overflow-hidden"
     >
-      {/* Container */}
       <div className="w-full max-w-lg lg:max-w-3xl mx-auto">
-        {/* Header */}
         <motion.header
           initial={{ y: -100 }}
           animate={{ y: 0 }}
@@ -58,7 +70,6 @@ export default function Home() {
           </p>
         </motion.header>
 
-        {/* Input Section */}
         <motion.div
           className="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-3 mb-6"
           initial={{ scale: 0.8 }}
@@ -84,55 +95,44 @@ export default function Home() {
           </motion.button>
         </motion.div>
 
-        {/* Video List */}
+        {errorMsg && <p className="text-red-500 text-center mb-4">{errorMsg}</p>}
+
         <AnimatePresence>
-          {videos.length > 0 && (
+          {data && (
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
               className="w-full space-y-4"
             >
-              {videos.map((video, index) => (
+              <motion.div
+                className="bg-[#ffffff0d] backdrop-blur-lg w-full mx-auto rounded-2xl p-6 border border-[#ffffff1a] flex items-center space-x-6"
+              >
                 <motion.div
-                  key={index}
-                  className="bg-[#ffffff0d] backdrop-blur-lg w-full mx-auto rounded-2xl p-6 border border-[#ffffff1a] flex items-center space-x-6"
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  className="relative w-24 h-24 rounded-xl overflow-hidden flex items-center justify-center bg-blue-900"
                 >
-                  {/* Thumbnail */}
-                  <motion.div
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
-                    className="relative w-32 h-32 rounded-xl overflow-hidden"
-                  >
-                    <Image
-                      src={video.thumbnail}
-                      alt="Thumbnail"
-                      width={200}
-                      height={120}
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  </motion.div>
-
-                  {/* Download Button */}
-                  <motion.div className="flex-1">
-                    <h3 className="text-lg font-semibold mb-2">
-                      {video.resolution}
-                    </h3>
-                    <motion.button
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => window.open(video.url)}
-                      className="w-full p-3 text-center bg-[#ffffff0a] hover:bg-[#ffffff15] rounded-xl border border-[#ffffff1a] transition-all"
-                    >
-                      Download Video
-                    </motion.button>
-                  </motion.div>
+                   <span className="text-4xl font-bold">f</span>
                 </motion.div>
-              ))}
+
+                <motion.div className="flex-1">
+                  <h3 className="text-lg font-semibold mb-2">
+                    {data.filename || "Facebook Video"}
+                  </h3>
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => window.open(data.url, "_blank")}
+                    className="w-full p-3 text-center bg-[#ffffff0a] hover:bg-[#ffffff15] rounded-xl border border-[#ffffff1a] transition-all"
+                  >
+                    Download Video
+                  </motion.button>
+                </motion.div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Footer */}
         <Footer />
       </div>
     </motion.div>
