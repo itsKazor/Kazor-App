@@ -14,7 +14,6 @@ export default function AIChat() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
-  const prompt = "Kamu adalah Kazor Ai, AI yang bisa menjawab pertanyaanmu";
 
   const fetchAIResponse = async (userMessage: string) => {
     if (!userMessage) return;
@@ -27,17 +26,18 @@ export default function AIChat() {
     ]);
 
     try {
+      // Menggunakan Hercai API (Gratis & No Key)
       const res = await fetch(
-        `https://api.ryzendesu.vip/api/ai/deepseek?text=${encodeURIComponent(
+        `https://hercai.onrender.com/v3/hercai?question=${encodeURIComponent(
           userMessage
-        )}&prompt=${encodeURIComponent(prompt)}`
+        )}`
       );
       const result = await res.json();
 
       // Tambah respon AI
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 1, text: result.answer, isUser: false },
+        { id: Date.now() + 1, text: result.reply, isUser: false },
       ]);
     } catch (error) {
       console.error("Error:", error);
@@ -75,7 +75,7 @@ export default function AIChat() {
           className="py-8 text-center"
         >
           <h1 className="text-4xl font-extrabold text-orange-300">KAZOR AI</h1>
-          <p className="text-orange-200/80 mt-2">Tanya apa saja ke AI</p>
+          <p className="text-orange-200/80 mt-2">Tanya apa saja ke AI (Powered by Hercai)</p>
         </motion.header>
 
         {/* Messages */}
